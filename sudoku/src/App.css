@@ -1,0 +1,41 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+body {
+    margin: 0;
+}
+
+.Gridspace {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(9, auto);
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    text-align: center;
+}
