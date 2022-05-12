@@ -21,21 +21,4 @@ const possible = (row, col, num, grid) => {
   return true;
 }
 
-const solve = (grid) => {
-  for (let row = 0; row < 9; row++) {
-    for (let col = 0; col < 9; col++) {
-      if (grid[row][col] === 0) {
-        for (let n = 1; n < 10; n++) {
-          if (possible(row, col, n, grid)) {
-            grid[row][col] = n;
-            solve(grid);
-            grid[row][col] = 0;
-          }
-        }
-        return;
-      }
-    }
-  }
-}
-
-export {possible, solve}
+export {possible}

@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 /* Chrome, Safari, Edge, Opera */
 
 input::-webkit-outer-spin-button,
@@ -12,7 +11,6 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
 
 /* Firefox */
 
@@ -25,12 +23,24 @@ body {
 }
 
 .Gridspace {
-    width: 100vw;
-    height: 100vh;
     display: grid;
     justify-content: center;
     align-content: center;
     grid-template-columns: repeat(9, auto);
+}
+
+.Buttonspace {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.Message {
+    text-align: center;
+}
+
+.row {
+    align-content: center;
 }
 
 .cell {
@@ -67,4 +77,44 @@ body {
 
 .clicked {
     background-color: yellow;
+}
+
+.solved {
+    background-color: green;
+}
+
+.button {
+    font-weight: bold;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    animation-name: darken;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes darken {
+    100% {
+        opacity: 50%;
+    }
+}
+
+.reset {
+    background-color: grey;
+}
+
+.solve {
+    background-color: blue;
+}
+
+.random {
+    background-color: red;
 }

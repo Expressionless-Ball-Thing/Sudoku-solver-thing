@@ -2,7 +2,7 @@ import React from 'react';
 
 function Buttons(props) {
     return (
-        <div>
+        <div className='Buttonspace'>
             <div>
                 <button className="button reset" onClick={props.reset}>Reset Grid</button>
             </div>
@@ -14,7 +14,6 @@ function Buttons(props) {
             <div>
                 <button className="button random" onClick={props.random}>Random</button>
             </div>
-
         </div>
     )
 }
