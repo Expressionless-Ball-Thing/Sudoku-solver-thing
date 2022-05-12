@@ -1,13 +1,26 @@
 import React from 'react';
 
 function Grid(props) {
+    console.log(props.grid)
     const items = []
     for (let row = 0; row < props.grid.length; row++) {
         for (let col = 0; col < props.grid.length; col++) {
-            var stuff = row * props.grid.length + col
-            items.push(<input type="number" min="1" max="9" className='cell' id={stuff}/>)
+            let stuff = row * props.grid.length + col
+            var classset = 'cell'
+            if (stuff === props.clicked) {
+                classset = 'cell clicked'
+            }
+            items.push(<input 
+                maxLength={1} 
+                onClick={props.click} 
+                onChange={props.update} 
+                className={classset} 
+                id={stuff} 
+                value={props.grid[row][col] === 0 ? "" : props.grid[row][col]}/>
+            )
         }
     }
+
     return (
         <div className='Gridspace'>
             {items}
