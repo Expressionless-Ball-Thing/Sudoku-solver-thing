@@ -6,6 +6,7 @@ import {possible} from "./sudoku.js"
 import {solver, solved} from "./solver.js"
 
 const n = null
+
 function App() {
   const [grid, setgrid] = useState([
     [n, n, n, n, n, n, n, n, n],
@@ -18,14 +19,16 @@ function App() {
     [n, n, n, n, n, n, n, n, n],
     [n, n, n, n, n, n, n, n, n],
   ]);
-  const [clickedcell, setclickedcell] = useState(0)
-  const [completed, setcompleted] = useState(false)
+  const [clickedcell, setclickedcell] = useState(0);
+  const [completed, setcompleted] = useState(false);
 
   const updatecell = (event) => {
     var value = parseInt(event.target.value)
     if (isNaN(value)) {value = null}
-    var pos = parseInt(event.target.id)
-    var row = Math.floor(pos/grid.length)
+    var pos = parseInt(event.target.id) 
+    /* var value = parseInt(event.key)
+    var pos = parseInt(clickedcell) */
+    var row = Math.floor(pos/grid.length) 
     var col = pos % grid.length
     var temp_grid = [...grid]
 
@@ -65,7 +68,7 @@ function App() {
       [n, n, n, n, n, n, n, n, n],
       [n, n, n, n, n, n, n, n, n],
       [n, n, n, n, n, n, n, n, n],
-      [n, n, n, n, n, n, n, n, n],   
+      [n, n, n, n, n, n, n, n, n],
     ])
     setcompleted(false)
   }

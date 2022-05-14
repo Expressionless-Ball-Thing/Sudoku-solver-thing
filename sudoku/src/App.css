@@ -20,6 +20,8 @@ input[type="number"] {
 
 body {
     margin: 0;
+    background-color: black;
+    color: white;
 }
 
 .Gridspace {
@@ -46,10 +48,12 @@ body {
 .cell {
     width: 50px;
     height: 50px;
-    border: 1px solid black;
+    background-color: black;;
+    border: 1px solid rgb(188, 165, 165);
     justify-content: center;
     align-items: center;
     text-align: center; 
+    color: white;
 }
 
 .cell:nth-child(n+19):nth-child(-n+27) {
@@ -60,10 +64,17 @@ body {
     border-bottom: 1px solid red;
 }
 
+.cell:nth-child(n+72) {
+    border-bottom: 1px solid red;
+}
+
 .cell:nth-child(n+28):nth-child(-n+36) {
     border-top: 1px solid red;
 }
 .cell:nth-child(n+55):nth-child(-n+63) {
+    border-top: 1px solid red;
+}
+.cell:nth-child(-n+9) {
     border-top: 1px solid red;
 }
 
@@ -76,7 +87,7 @@ body {
 
 
 .clicked {
-    background-color: yellow;
+    background-color: blue;
 }
 
 .solved {
@@ -85,6 +96,7 @@ body {
 
 .button {
     font-weight: bold;
+    margin: 0 5px;
     border: none;
     color: white;
     padding: 10px 10px;
