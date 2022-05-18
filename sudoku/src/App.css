@@ -28,7 +28,6 @@ body {
     display: grid;
     justify-content: center;
     align-content: center;
-    grid-template-columns: repeat(9, auto);
 }
 
 .Buttonspace {
@@ -46,6 +45,7 @@ body {
 }
 
 .cell {
+    font-size: xx-large;
     width: 50px;
     height: 50px;
     background-color: black;;
@@ -56,25 +56,10 @@ body {
     color: white;
 }
 
-.cell:nth-child(n+19):nth-child(-n+27) {
+.row:nth-child(3n) .cell {
     border-bottom: 1px solid red;
 }
-
-.cell:nth-child(n+46):nth-child(-n+54) {
-    border-bottom: 1px solid red;
-}
-
-.cell:nth-child(n+72) {
-    border-bottom: 1px solid red;
-}
-
-.cell:nth-child(n+28):nth-child(-n+36) {
-    border-top: 1px solid red;
-}
-.cell:nth-child(n+55):nth-child(-n+63) {
-    border-top: 1px solid red;
-}
-.cell:nth-child(-n+9) {
+.row:nth-child(3n+1) .cell {
     border-top: 1px solid red;
 }
 

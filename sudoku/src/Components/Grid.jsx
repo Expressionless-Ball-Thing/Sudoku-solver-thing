@@ -1,8 +1,9 @@
 import React from "react";
 
 function Grid(props) {
-  const items = [];
+  const rowitems = [];
   for (let row = 0; row < props.grid.length; row++) {
+    const colitems = []
     for (let col = 0; col < props.grid.length; col++) {
       let stuff = row * props.grid.length + col;
       var classset = "cell";
@@ -10,22 +11,16 @@ function Grid(props) {
         classset = "cell clicked";
       }
       if (props.complete === true) {
-        items.push(
-          <input
-            key={stuff}
-            readOnly
-            className="cell solved"
-            id={stuff}
-            value={props.grid[row][col]}
-          />
+        colitems.push(
+          <input key={stuff} disabled className="cell solved" id={stuff} value={props.grid[row][col]} tabIndex="-1"/>
         );
       } else {
-        items.push(
-          <input
-            key={stuff}
+        colitems.push(
+          <input readOnly
+            key={stuff} 
+            tabIndex="-1"
             maxLength={1}
             onClick={props.click}
-            onChange={props.update}
             className={classset}
             id={stuff}
             value={props.grid[row][col] === null ? "" : props.grid[row][col]}
@@ -33,7 +28,10 @@ function Grid(props) {
         );
       }
     }
+    rowitems.push(colitems)
   }
+
+  const gridlist = rowitems.map((cols) => <div className="row">{cols}</div>)
 
   const completion =
     props.complete === "unsolvable"
@@ -48,7 +46,7 @@ function Grid(props) {
         <h1>{completion}</h1>
       </div>
 
-      <div className="Gridspace">{items}</div>
+      <div className="Gridspace">{gridlist}</div>
     </div>
   );
 }

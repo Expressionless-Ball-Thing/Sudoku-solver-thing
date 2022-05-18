@@ -22,21 +22,61 @@ function App() {
   const [clickedcell, setclickedcell] = useState(0);
   const [completed, setcompleted] = useState(false);
 
-  const updatecell = (event) => {
-    var value = parseInt(event.target.value)
-    if (isNaN(value)) {value = null}
-    var pos = parseInt(event.target.id) 
-    /* var value = parseInt(event.key)
-    var pos = parseInt(clickedcell) */
-    var row = Math.floor(pos/grid.length) 
-    var col = pos % grid.length
-    var temp_grid = [...grid]
-
-    if (value !== null && possible(row, col, value, grid)) {
-      temp_grid[row][col] = value
+  const updatehighlightcell = (key) => {
+    let cellcount = Math.pow(grid.length,2)
+    let newclickedcell
+    if (key === "ArrowUp") {
+      newclickedcell = (clickedcell - grid.length) % cellcount;
+    } else if (key === "ArrowDown") {
+      newclickedcell = (clickedcell + grid.length) % cellcount;
+    } else if (key === "ArrowLeft") {
+      newclickedcell = (clickedcell - 1) % cellcount;
     } else {
-      temp_grid[row][col] = null
+      newclickedcell = (clickedcell + 1) % cellcount;
     }
+    newclickedcell = (newclickedcell < 0) ? cellcount + newclickedcell : newclickedcell
+
+    setclickedcell(newclickedcell)
+  }
+
+  const deletecell = (key) => {
+    let pos = parseInt(clickedcell)
+    let row = Math.floor(pos/grid.length) 
+    let col = pos % grid.length
+    let temp_grid = [...grid]
+    temp_grid[row][col] = null
+    setgrid(temp_grid)
+  }
+
+  const handleKeyDown = (event) => {  
+    let arrowkeys = ["ArrowRight", "ArrowUp", "ArrowDown", "ArrowLeft"]
+    let deletekeys = ["Backspace", "Delete"]
+    if (arrowkeys.includes(event.key) === true) {
+      updatehighlightcell(event.key)
+    } else if (deletekeys.includes(event.key)) {
+      deletecell(event.key)
+    } else {
+      updatecell(event.key)
+    }
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    // cleanup this component
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  });
+
+
+  const updatecell = (value) => {
+    value = parseInt(value)
+    if (isNaN(value) || value === 0) {value = null}
+    let pos = parseInt(clickedcell)
+    let row = Math.floor(pos/grid.length) 
+    let col = pos % grid.length
+    let temp_grid = [...grid]
+    temp_grid[row][col] = (value !== null && possible(row, col, value, grid)) ? value : temp_grid[row][col]
     setgrid(temp_grid)
     if (solved(temp_grid)) {
       setcompleted(true)
@@ -59,23 +99,19 @@ function App() {
   }
 
   const reset = () => {
-    setgrid([
-      [n, n, n, n, n, n, n, n, n],
-      [n, n, n, n, n, n, n, n, n],
-      [n, n, n, n, n, n, n, n, n],
-      [n, n, n, n, n, n, n, n, n],
-      [n, n, n, n, n, n, n, n, n],
-      [n, n, n, n, n, n, n, n, n],
-      [n, n, n, n, n, n, n, n, n],
-      [n, n, n, n, n, n, n, n, n],
-      [n, n, n, n, n, n, n, n, n],
-    ])
+    var temp_grid = [...grid]
+    for (let row = 0; row < temp_grid.length; row++) {
+      for (let col = 0; col < temp_grid.length; col++) {
+        temp_grid[row][col] = n;
+      }
+    }
+    setgrid(temp_grid)
     setcompleted(false)
   }
 
   return (
     <div>
-      <Grid grid={grid} update={updatecell} click={highlightcell} clicked={clickedcell} complete={completed}/>
+      <Grid grid={grid} click={highlightcell} clicked={clickedcell} complete={completed}/>
       <Buttons reset={reset} solve={solvesudoku}/>
     </div>
   );
