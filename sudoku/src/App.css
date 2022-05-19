@@ -71,6 +71,19 @@ body {
 }
 
 
+.allowedinputs {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.allowednumber {
+    padding: 25px 25px;
+}
+
+
 .clicked {
     background-color: blue;
 }
