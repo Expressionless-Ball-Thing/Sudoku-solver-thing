@@ -1,130 +1,134 @@
 *,
 *::after,
 *::before {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /* Chrome, Safari, Edge, Opera */
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Firefox */
 
 input[type="number"] {
-    -moz-appearance: textfield;
+  -moz-appearance: textfield;
 }
 
 body {
-    margin: 0;
-    background-color: black;
-    color: white;
+  margin: 0;
+  background-color: black;
+  color: white;
 }
 
 .Gridspace {
-    display: grid;
-    justify-content: center;
-    align-content: center;
+  display: grid;
+  justify-content: center;
+  align-content: center;
 }
 
 .Buttonspace {
-    padding: 10px;
-    display: flex;
-    justify-content: center;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .Message {
-    text-align: center;
+  text-align: center;
 }
 
 .row {
-    align-content: center;
+  align-content: center;
 }
 
 .cell {
-    font-size: xx-large;
-    width: 50px;
-    height: 50px;
-    background-color: black;;
-    border: 1px solid rgb(188, 165, 165);
-    justify-content: center;
-    align-items: center;
-    text-align: center; 
-    color: white;
+  font-size: xx-large;
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  border: 1px solid rgb(188, 165, 165);
+  text-align: center;
+  color: white;
 }
 
 .row:nth-child(3n) .cell {
-    border-bottom: 1px solid red;
+  border-bottom: 1px solid red;
 }
-.row:nth-child(3n+1) .cell {
-    border-top: 1px solid red;
+.row:nth-child(3n + 1) .cell {
+  border-top: 1px solid red;
 }
 
 .cell:nth-child(3n) {
-    border-right: 1px solid red;
+  border-right: 1px solid red;
 }
-.cell:nth-child(3n+1) {
-    border-left: 1px solid red;
+.cell:nth-child(3n + 1) {
+  border-left: 1px solid red;
 }
 
+.cell:focus {
+  outline: none;
+}
 
 .allowedinputs {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  padding: 5px 5px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .allowednumber {
-    padding: 25px 25px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid white;
+  text-align: center;
 }
 
-
 .clicked {
-    background-color: blue;
+  background-color: blue;
 }
 
 .solved {
-    background-color: green;
+  background-color: green;
 }
 
 .button {
-    font-weight: bold;
-    margin: 0 5px;
-    border: none;
-    color: white;
-    padding: 10px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 5px;
-    cursor: pointer;
+  font-weight: bold;
+  margin: 0 5px;
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .button:hover {
-    animation-name: darken;
-    animation-duration: 500ms;
-    animation-fill-mode: forwards;
+  animation-name: darken;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
 }
 
 @keyframes darken {
-    100% {
-        opacity: 50%;
-    }
+  100% {
+    opacity: 50%;
+  }
 }
 
 .reset {
-    background-color: grey;
+  background-color: grey;
 }
 
 .solve {
-    background-color: blue;
+  background-color: blue;
 }
 
 .random {
-    background-color: red;
+  background-color: red;
 }

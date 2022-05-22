@@ -4,127 +4,139 @@ import Buttons from "./Components/Buttons";
 import Grid from "./Components/Grid";
 import { possible } from "./sudoku.js";
 import { solver, solved } from "./solver.js";
-import AllowedInputs from "./Components/AllowedInputs"
+import AllowedInputs from "./Components/AllowedInputs";
 
 const n = null;
 
 function App() {
-    const [grid, setgrid] = useState([
-        [n, n, n, n, n, n, n, n, n],
-        [n, n, n, n, n, n, n, n, n],
-        [n, n, n, n, n, n, n, n, n],
-        [n, n, n, n, n, n, n, n, n],
-        [n, n, n, n, n, n, n, n, n],
-        [n, n, n, n, n, n, n, n, n],
-        [n, n, n, n, n, n, n, n, n],
-        [n, n, n, n, n, n, n, n, n],
-        [n, n, n, n, n, n, n, n, n],
-    ]);
-    const [clickedcell, setclickedcell] = useState(0);
-    const [completed, setcompleted] = useState(false);
+  const [grid, setgrid] = useState([
+    [n, n, n, n, n, n, n, n, n],
+    [n, n, n, n, n, n, n, n, n],
+    [n, n, n, n, n, n, n, n, n],
+    [n, n, n, n, n, n, n, n, n],
+    [n, n, n, n, n, n, n, n, n],
+    [n, n, n, n, n, n, n, n, n],
+    [n, n, n, n, n, n, n, n, n],
+    [n, n, n, n, n, n, n, n, n],
+    [n, n, n, n, n, n, n, n, n],
+  ]);
+  const [clickedcell, setclickedcell] = useState(0);
+  const [completed, setcompleted] = useState(false);
 
-    const updatehighlightcell = (key) => {
-        let cellcount = Math.pow(grid.length, 2);
-        let newclickedcell;
-        if (key === "ArrowUp") {
-            newclickedcell = (clickedcell - grid.length) % cellcount;
-        } else if (key === "ArrowDown") {
-            newclickedcell = (clickedcell + grid.length) % cellcount;
-        } else if (key === "ArrowLeft") {
-            newclickedcell = (clickedcell - 1) % cellcount;
-        } else {
-            newclickedcell = (clickedcell + 1) % cellcount;
-        }
-        newclickedcell =
-            newclickedcell < 0 ? cellcount + newclickedcell : newclickedcell;
+  const updatehighlightclickedcell = (key) => {
+    if (completed) {
+      return;
+    }
+    let cellcount = Math.pow(grid.length, 2);
+    let newclickedcell;
+    if (key === "ArrowUp") {
+      newclickedcell = clickedcell - grid.length;
+      newclickedcell =
+        newclickedcell < 0
+          ? cellcount + (newclickedcell % grid.length) - 1
+          : newclickedcell;
+    } else if (key === "ArrowDown") {
+      newclickedcell = clickedcell + grid.length;
+      newclickedcell =
+        newclickedcell >= cellcount
+          ? ((newclickedcell % cellcount) + 1) % grid.length
+          : newclickedcell;
+    } else if (key === "ArrowLeft") {
+      newclickedcell = (clickedcell - 1) % cellcount;
+    } else {
+      newclickedcell = (clickedcell + 1) % cellcount;
+    }
+    newclickedcell =
+      newclickedcell < 0 ? cellcount + newclickedcell : newclickedcell;
+    setclickedcell(newclickedcell);
+  };
 
-        setclickedcell(newclickedcell);
+  const deletecell = () => {
+    let pos = parseInt(clickedcell);
+    let row = Math.floor(pos / grid.length);
+    let col = pos % grid.length;
+    let temp_grid = [...grid];
+    temp_grid[row][col] = null;
+    setgrid(temp_grid);
+  };
+
+  const handleKeyDown = (event) => {
+    event.preventDefault();
+    let arrowkeys = ["ArrowRight", "ArrowUp", "ArrowDown", "ArrowLeft"];
+    let deletekeys = ["Backspace", "Delete"];
+    if (arrowkeys.includes(event.key) === true) {
+      updatehighlightclickedcell(event.key);
+    } else if (deletekeys.includes(event.key)) {
+      deletecell(event.key);
+    } else {
+      updatecell(event.key);
+    }
+  };
+
+  React.useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
     };
+  });
 
-    const deletecell = (key) => {
-        let pos = parseInt(clickedcell);
-        let row = Math.floor(pos / grid.length);
-        let col = pos % grid.length;
-        let temp_grid = [...grid];
-        temp_grid[row][col] = null;
-        setgrid(temp_grid);
-    };
+  const updatecell = (value) => {
+    value = parseInt(value);
+    if (isNaN(value) || value === 0) {
+      value = null;
+    }
+    let pos = parseInt(clickedcell);
+    let row = Math.floor(pos / grid.length);
+    let col = pos % grid.length;
+    let temp_grid = [...grid];
+    temp_grid[row][col] =
+      value !== null && possible(row, col, value, grid)
+        ? value
+        : temp_grid[row][col];
+    setgrid(temp_grid);
+    if (solved(temp_grid)) {
+      setcompleted(true);
+    }
+  };
 
-    const handleKeyDown = (event) => {
-        let arrowkeys = ["ArrowRight", "ArrowUp", "ArrowDown", "ArrowLeft"];
-        let deletekeys = ["Backspace", "Delete"];
-        if (arrowkeys.includes(event.key) === true) {
-            updatehighlightcell(event.key);
-        } else if (deletekeys.includes(event.key)) {
-            deletecell(event.key);
-        } else {
-            updatecell(event.key);
-        }
-    };
+  const solvesudoku = () => {
+    var temp_grid = solver(grid);
+    if (temp_grid !== false) {
+      setgrid(temp_grid);
+      setcompleted(true);
+    } else {
+      setcompleted("unsolvable");
+    }
+  };
 
-    React.useEffect(() => {
-        window.addEventListener("keydown", handleKeyDown);
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown);
-        };
-    });
+  const highlightclickedcell = (event) => {
+    var pos = parseInt(event.target.id);
+    setclickedcell(pos);
+  };
 
-    const updatecell = (value) => {
-        value = parseInt(value);
-        if (isNaN(value) || value === 0) {
-            value = null;
-        }
-        let pos = parseInt(clickedcell);
-        let row = Math.floor(pos / grid.length);
-        let col = pos % grid.length;
-        let temp_grid = [...grid];
-        temp_grid[row][col] =
-            value !== null && possible(row, col, value, grid) ?
-                value :
-                temp_grid[row][col];
-        setgrid(temp_grid);
-        if (solved(temp_grid)) {
-            setcompleted(true);
-        }
-    };
+  const reset = () => {
+    var temp_grid = [...grid];
+    for (let row = 0; row < temp_grid.length; row++) {
+      for (let col = 0; col < temp_grid.length; col++) {
+        temp_grid[row][col] = n;
+      }
+    }
+    setgrid(temp_grid);
+    setcompleted(false);
+  };
 
-    const solvesudoku = () => {
-        var temp_grid = solver(grid);
-        if (temp_grid !== false) {
-            setgrid(temp_grid);
-            setcompleted(true);
-        } else {
-            setcompleted("unsolvable");
-        }
-    };
-
-    const highlightcell = (event) => {
-        var pos = parseInt(event.target.id);
-        setclickedcell(pos);
-    };
-
-    const reset = () => {
-        var temp_grid = [...grid];
-        for (let row = 0; row < temp_grid.length; row++) {
-            for (let col = 0; col < temp_grid.length; col++) {
-                temp_grid[row][col] = n;
-            }
-        }
-        setgrid(temp_grid);
-        setcompleted(false);
-    };
-
-    return (
-        <div>
-            <Grid grid={grid}
-                click={highlightcell}
-                clicked={clickedcell}
-                complete={completed}
-            /> 
-            <AllowedInputs grid={grid} cell={clickedcell}/>
-            <Buttons reset={reset} solve={solvesudoku}/>
-        </div>
-    );
+  return (
+    <div>
+      <Grid
+        grid={grid}
+        click={highlightclickedcell}
+        clicked={clickedcell}
+        complete={completed}
+      />
+      <AllowedInputs grid={grid} cell={clickedcell} completed={completed} update={updatecell} delete={deletecell}/>
+      <Buttons reset={reset} solve={solvesudoku} />
+    </div>
+  );
 }
 
 export default App;

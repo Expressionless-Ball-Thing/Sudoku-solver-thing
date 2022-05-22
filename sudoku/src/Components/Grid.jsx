@@ -16,12 +16,7 @@ function Grid(props) {
         );
       } else {
         colitems.push(
-          <input readOnly
-            key={stuff} 
-            tabIndex="-1"
-            maxLength={1}
-            onClick={props.click}
-            className={classset}
+          <input readOnly key={stuff} tabIndex="-1" maxLength={1} onClick={props.click} className={classset}
             id={stuff}
             value={props.grid[row][col] === null ? "" : props.grid[row][col]}
           />
