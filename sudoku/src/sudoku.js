@@ -1,11 +1,12 @@
 const possible = (row, col, num, grid) => {
+  num = parseInt(num)
   for (let i = 0; i < grid.length; i++) {
-    if (grid[row][i] === num) {
+    if (parseInt(grid[row][i]) === num) {
       return false;
     }
   }
   for (let i = 0; i < grid.length; i++) {
-    if (grid[i][col] === num) {
+    if (parseInt(grid[i][col]) === num) {
       return false;
     }
   }
@@ -14,7 +15,7 @@ const possible = (row, col, num, grid) => {
   var square_row_start = Math.floor(row / factor) * factor;
   for (let i = 0; i < factor; i++) {
     for (let j = 0; j < factor; j++) {
-      if (grid[square_row_start + i][square_col_start + j] === num) {
+      if (parseInt(grid[square_row_start + i][square_col_start + j]) === num) {
         return false;
       }
     }

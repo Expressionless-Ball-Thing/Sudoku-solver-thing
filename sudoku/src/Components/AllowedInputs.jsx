@@ -4,20 +4,24 @@ import { possible } from '../sudoku';
 function AllowedInputs(props) {
 
     const handleclick = (event) => {
-        console.log(event.target.id)
         props.update(event.target.id)
     }
 
     let pos = parseInt(props.cell);
     let row = Math.floor(pos / props.grid.length);
     let col = pos % props.grid.length;
+    if (typeof props.grid[row][col] !== 'number' && props.grid[row][col] !== null) {
+        return
+    }
     let numbers = [...Array(props.grid.length + 1).keys()].slice(1)
     numbers = numbers.filter((num) => possible(row, col, num, props.grid))
     numbers = numbers.map((num) => <div className='allowednumber' id={num} onClick={handleclick}>{num}</div>)
     return (
-        <div className='allowedinputs'>
+        <div>
+        {!props.completed && <div className='allowedinputs'>
             {numbers}
-            {!props.completed && <div className='allowednumber' onClick={props.delete}></div>}
+            <div className='allowednumber' onClick={props.delete}>Erase</div>
+        </div>}
         </div>
     )
 }

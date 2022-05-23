@@ -42,6 +42,8 @@ body {
 
 .row {
   align-content: center;
+  display: grid;
+  grid-template-columns: repeat(9, auto);
 }
 
 .cell {
@@ -88,12 +90,28 @@ body {
   text-align: center;
 }
 
+@media screen and (max-width: 500px) {
+  .cell {
+    font-size: medium;
+    width: 35px;
+    height: 35px;
+  }
+  .allowednumber {
+    width: 30px;
+    height: 30px;
+  }
+}
+
 .clicked {
   background-color: blue;
 }
 
 .solved {
   background-color: green;
+}
+
+.preset {
+  color: red;
 }
 
 .button {
