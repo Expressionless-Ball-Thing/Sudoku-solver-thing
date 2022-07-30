@@ -10,8 +10,8 @@ export function solver(grid) {
 
 export function solved(grid) {
   // checks to see if the given puzzle is solved
-  for (var i = 0; i < grid.length; i++) {
-    for (var j = 0; j < grid.length; j++) {
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid.length; j++) {
       if (grid[i][j] == null) {
         return false;
       }
@@ -27,7 +27,7 @@ function searchForSolution(grids) {
     return false;
   } else {
     // backtracking search for solution
-    var first = grids.shift();
+    let first = grids.shift();
     const tryPath = solver(first);
     if (tryPath !== false) {
       return tryPath;
@@ -40,14 +40,14 @@ function searchForSolution(grids) {
 function nextgrids(grid) {
   // grid -> List[grid]
   // finds the first emply square and generates 9 different grids filling in that square with numbers 1...9
-  var res = [];
+  let res = [];
   const firstEmpty = findEmptySquare(grid);
   if (firstEmpty !== undefined) {
     const row = firstEmpty[0];
     const col = firstEmpty[1];
-    for (var i = 1; i <= grid.length; i++) {
-      var newgrid = [...grid];
-      var new_row = [...newgrid[row]];
+    for (let i = 1; i <= grid.length; i++) {
+      let newgrid = [...grid];
+      let new_row = [...newgrid[row]];
       new_row[col] = i;
       newgrid[row] = new_row;
       res.push(newgrid);
@@ -57,8 +57,8 @@ function nextgrids(grid) {
 }
 
 function findEmptySquare(grid) {
-  for (var row = 0; row < grid.length; row++) {
-    for (var col = 0; col < grid.length; col++) {
+  for (let row = 0; row < grid.length; row++) {
+    for (let col = 0; col < grid.length; col++) {
       if (grid[row][col] == null) {
         return [row, col];
       }
@@ -67,8 +67,8 @@ function findEmptySquare(grid) {
 }
 
 function keepOnlyValid(grids) {
-  var res = [];
-  for (var i = 0; i < grids.length; i++) {
+  let res = [];
+  for (let i = 0; i < grids.length; i++) {
     if (validgrid(grids[i])) {
       res.push(grids[i]);
     }
@@ -81,9 +81,9 @@ function validgrid(grid) {
 }
 
 function rowsCheck(grid) {
-  for (var row = 0; row < grid.length; row++) {
-    var cur = [];
-    for (var col = 0; col < grid.length; col++) {
+  for (let row = 0; row < grid.length; row++) {
+    let cur = [];
+    for (let col = 0; col < grid.length; col++) {
       if (cur.includes(grid[row][col])) {
         return false;
       } else if (grid[row][col] != null) {
@@ -95,9 +95,9 @@ function rowsCheck(grid) {
 }
 
 function columnsCheck(grid) {
-  for (var col = 0; col < grid.length; col++) {
-    var cur = [];
-    for (var row = 0; row < grid.length; row++) {
+  for (let col = 0; col < grid.length; col++) {
+    let cur = [];
+    for (let row = 0; row < grid.length; row++) {
       if (cur.includes(grid[row][col])) {
         return false;
       } else if (grid[row][col] != null) {
@@ -109,10 +109,10 @@ function columnsCheck(grid) {
 }
 
 function boxesCheck(grid) {
-  var factor = Math.floor(Math.sqrt(grid.length))
-  for (var row = 0; row < grid.length; row += factor) {
-    for (var col = 0; col < grid.length; col += factor) {
-      var cur = [];
+  let factor = Math.floor(Math.sqrt(grid.length))
+  for (let row = 0; row < grid.length; row += factor) {
+    for (let col = 0; col < grid.length; col += factor) {
+      let cur = [];
       for (let i = 0; i < factor; i++) {
         for (let j = 0; j < factor; j++) {
           if (cur.includes(grid[row+i][col+j])) {

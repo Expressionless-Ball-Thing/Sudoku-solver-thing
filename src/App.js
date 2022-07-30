@@ -23,6 +23,7 @@ function App() {
     [n, n, n, n, n, n, n, n, n],
   ]);
   const [clickedcell, setclickedcell] = useState(0);
+  const [templateloaded, settemplateloaded] = useState(false)
   const [completed, setcompleted] = useState(false);
 
   const updateclicked = (key) => {
@@ -86,13 +87,13 @@ function App() {
 
   const solvesudoku = () => {
     let temp_grid = [...grid]
-    for (let row = 0; row < temp_grid.length; row++) {
-      for (let col = 0; col < temp_grid.length; col++) {
-        if (typeof temp_grid[row][col] !== "number") {
-          temp_grid[row][col] = n
-        }
+    console.log(grid)
+    if (templateloaded === true) {
+      for (let row = 0; row < temp_grid.length; row++) {
+        temp_grid[row] = temp_grid[row].map(num => {return (typeof num === "number") ? n : num})
       }
     }
+    console.log(temp_grid)
     temp_grid = solver(temp_grid);
     if (temp_grid !== false) {
       setgrid(temp_grid);
@@ -114,6 +115,7 @@ function App() {
         temp_grid[row][col] = n;
       }
     }
+    settemplateloaded(false)
     setgrid(temp_grid);
     setcompleted(false);
   };
@@ -129,6 +131,7 @@ function App() {
         temp_grid[row][col] = (string[stuff2] === ".") ? n : string[stuff2];
       }
     }
+    settemplateloaded(true)
     setgrid(temp_grid)
   }
 
