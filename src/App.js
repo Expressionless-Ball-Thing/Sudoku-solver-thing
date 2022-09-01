@@ -12,7 +12,7 @@ const n = null;
 
 function App() {
   const [grid, setgrid] = useState([
-    [n, n, n, n, n, n, n, n, n],
+    [[n,n,n,n,n,n,n,n,n], n, n, n, n, n, n, n, n],
     [n, n, n, n, n, n, n, n, n],
     [n, n, n, n, n, n, n, n, n],
     [n, n, n, n, n, n, n, n, n],

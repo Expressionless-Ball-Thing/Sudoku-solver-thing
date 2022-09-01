@@ -154,3 +154,19 @@ body {
 .clear {
   background-color: green;
 }
+
+
+.note-cell {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  margin: 0px;
+}
+
+.note {
+  font-size: xx-large;
+  background-color: black;
+  border: 1px solid rgb(188, 165, 165);
+  text-align: center;
+  color: white;
+}
+

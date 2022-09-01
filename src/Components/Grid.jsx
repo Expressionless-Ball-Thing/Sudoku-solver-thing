@@ -1,4 +1,6 @@
 import React from "react";
+import Note from "./note-parts/Note"
+
 
 function Grid(props) {
   const rowitems = [];
@@ -9,6 +11,7 @@ function Grid(props) {
       let classes = "cell";
       classes += stuff === props.clicked ? " clicked" : "";
       classes += typeof props.grid[row][col] === "string" ? " preset" : "";
+      classes += (Array.isArray(props.grid[row][col])) ? " note-cell": "";
 
       if (props.complete === true) {
         colitems.push(
@@ -21,6 +24,10 @@ function Grid(props) {
             tabIndex="-1"
           />
         );
+      } else if (Array.isArray(props.grid[row][col])) {
+        colitems.push(
+          <Note classes={classes} data={props.grid[row][col]}/>
+        )
       } else {
         colitems.push(
           <input
