@@ -86,11 +86,14 @@ function App() {
   };
 
   const solvesudoku = () => {
+    if (solved(grid)) {
+      return
+    }
     let temp_grid = [...grid]
     console.log(grid)
     if (templateloaded === true) {
       for (let row = 0; row < temp_grid.length; row++) {
-        temp_grid[row] = temp_grid[row].map(num => {return (typeof num === "number") ? n : num})
+        temp_grid[row] = temp_grid[row].map(num => {return (typeof num === "number") ? n : (typeof num === "string") ? parseInt(num) : num})
       }
     }
     console.log(temp_grid)
@@ -161,7 +164,11 @@ function App() {
         update={updatecell}
         delete={deletecell}
       />
-      <Buttons reset={reset} solve={solvesudoku} random={random} completed={completed}/>
+      <Buttons 
+        reset={reset} 
+        solve={solvesudoku} 
+        random={random} 
+        completed={completed}/>
     </div>
   );
 }
