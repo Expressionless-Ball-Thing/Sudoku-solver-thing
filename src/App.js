@@ -90,13 +90,11 @@ function App() {
       return
     }
     let temp_grid = [...grid]
-    console.log(grid)
-    if (templateloaded === true) {
+    if (templateloaded !== false) {
       for (let row = 0; row < temp_grid.length; row++) {
         temp_grid[row] = temp_grid[row].map(num => {return (typeof num === "number") ? n : (typeof num === "string") ? parseInt(num) : num})
       }
     }
-    console.log(temp_grid)
     temp_grid = solver(temp_grid);
     if (temp_grid !== false) {
       setgrid(temp_grid);
@@ -105,6 +103,19 @@ function App() {
       setcompleted("unsolvable");
     }
   };
+
+  const clearinputs = () => {
+    let string = templateloaded
+    let temp_grid = [...grid]
+    for (let row = 0; row < temp_grid.length; row++) {
+      for (let col = 0; col < temp_grid.length; col++) {
+        let stuff2 = row * grid.length + col;
+        temp_grid[row][col] = (string[stuff2] === ".") ? n : string[stuff2];
+      }
+    }
+    setgrid(temp_grid)
+    setcompleted(false);
+  }
 
   const highlightclickedcell = (event) => {
     var pos = parseInt(event.target.id);
@@ -134,7 +145,7 @@ function App() {
         temp_grid[row][col] = (string[stuff2] === ".") ? n : string[stuff2];
       }
     }
-    settemplateloaded(true)
+    settemplateloaded(string)
     setgrid(temp_grid)
   }
 
@@ -168,7 +179,10 @@ function App() {
         reset={reset} 
         solve={solvesudoku} 
         random={random} 
-        completed={completed}/>
+        clearinputs={clearinputs}
+        completed={completed}
+        template={templateloaded}
+      />
     </div>
   );
 }
