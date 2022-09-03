@@ -160,11 +160,15 @@ body {
   display: grid;
   grid-template-columns: repeat(3, auto);
   margin: 0px;
+  background-color: black;
 }
 
 .note {
-  font-size: xx-large;
-  background-color: black;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  font-size: 30%;
   border: 1px solid rgb(188, 165, 165);
   text-align: center;
   color: white;

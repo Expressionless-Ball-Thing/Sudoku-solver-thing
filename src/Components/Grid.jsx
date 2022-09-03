@@ -1,6 +1,6 @@
 import React from "react";
 import Note from "./note-parts/Note"
-
+import Message from "./Message"
 
 function Grid(props) {
   const rowitems = [];
@@ -26,7 +26,7 @@ function Grid(props) {
         );
       } else if (Array.isArray(props.grid[row][col])) {
         colitems.push(
-          <Note classes={classes} data={props.grid[row][col]}/>
+          <Note classes={classes} data={props.grid[row][col]} id={stuff} click={props.click}/>
         )
       } else {
         colitems.push(
@@ -58,8 +58,9 @@ function Grid(props) {
     <div>
       <div className="Message">
         <h1>{completion}</h1>
+        {props.complete === false ? <Message mode={props.mode}/> : ""}
       </div>
-
+      
       <div className="Gridspace">{gridlist}</div>
     </div>
   );
