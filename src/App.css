@@ -154,3 +154,33 @@ body {
 .clear {
   background-color: green;
 }
+
+.switch {
+  background-color: lightgreen;
+}
+
+
+.note-cell {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  padding: 0px;
+  margin: 0px;
+  background-color: black;
+}
+
+.note {
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  font-size: 30%;
+  text-align: center;
+  color: white;
+}
+
+.mode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

@@ -1,4 +1,5 @@
 import React from "react";
+import Note from "./note-parts/Note"
 
 function Grid(props) {
   const rowitems = [];
@@ -9,6 +10,7 @@ function Grid(props) {
       let classes = "cell";
       classes += stuff === props.clicked ? " clicked" : "";
       classes += typeof props.grid[row][col] === "string" ? " preset" : "";
+      classes += (Array.isArray(props.grid[row][col])) ? " note-cell": "";
 
       if (props.complete === true) {
         colitems.push(
@@ -21,6 +23,10 @@ function Grid(props) {
             tabIndex="-1"
           />
         );
+      } else if (Array.isArray(props.grid[row][col])) {
+        colitems.push(
+          <Note classes={classes} data={props.grid[row][col]} id={stuff} click={props.click}/>
+        )
       } else {
         colitems.push(
           <input
@@ -40,19 +46,9 @@ function Grid(props) {
   }
 
   const gridlist = rowitems.map((cols) => <div className="row">{cols}</div>);
-  const completion =
-    props.complete === "unsolvable"
-      ? "This thing isn't solvable"
-      : props.complete === true
-      ? "Solved"
-      : "Get solvin!";
 
   return (
-    <div>
-      <div className="Message">
-        <h1>{completion}</h1>
-      </div>
-
+    <div>      
       <div className="Gridspace">{gridlist}</div>
     </div>
   );
