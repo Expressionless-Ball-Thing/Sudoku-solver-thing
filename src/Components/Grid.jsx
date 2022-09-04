@@ -1,6 +1,5 @@
 import React from "react";
 import Note from "./note-parts/Note"
-import Message from "./Message"
 
 function Grid(props) {
   const rowitems = [];
@@ -47,20 +46,9 @@ function Grid(props) {
   }
 
   const gridlist = rowitems.map((cols) => <div className="row">{cols}</div>);
-  const completion =
-    props.complete === "unsolvable"
-      ? "This thing isn't solvable"
-      : props.complete === true
-      ? "Solved"
-      : "Get solvin!";
 
   return (
-    <div>
-      <div className="Message">
-        <h1>{completion}</h1>
-        {props.complete === false ? <Message mode={props.mode}/> : ""}
-      </div>
-      
+    <div>      
       <div className="Gridspace">{gridlist}</div>
     </div>
   );

@@ -155,10 +155,15 @@ body {
   background-color: green;
 }
 
+.switch {
+  background-color: lightgreen;
+}
+
 
 .note-cell {
   display: grid;
   grid-template-columns: repeat(3, auto);
+  padding: 0px;
   margin: 0px;
   background-color: black;
 }
@@ -169,8 +174,13 @@ body {
   margin: 0px;
   padding: 0px;
   font-size: 30%;
-  border: 1px solid rgb(188, 165, 165);
   text-align: center;
   color: white;
+}
+
+.mode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 

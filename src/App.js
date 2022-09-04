@@ -6,6 +6,7 @@ import { possible } from "./sudoku.js";
 import { solver, solved } from "./solver.js";
 import AllowedInputs from "./Components/AllowedInputs";
 import template from "./template.json";
+import Message from "./Components/Message";
 
 const n = null;
 
@@ -25,6 +26,8 @@ function App() {
   const [templateloaded, settemplateloaded] = useState(false);
   const [completed, setcompleted] = useState(false);
   const [notemode, setnotemode] = useState(false);
+
+
 
   const updateclicked = (key) => {
     let cellcount = Math.pow(grid.length, 2);
@@ -70,11 +73,15 @@ function App() {
     } else if (deletekeys.includes(event.key)) {
       deletecell();
     } else if (event.key === "n") {
-      notemode === true ? setnotemode(false) : setnotemode(true);
+      changemode();
     } else {
       updatecell(event.key);
     }
   };
+
+  const changemode = () => {
+    notemode === true ? setnotemode(false) : setnotemode(true);
+  }
 
   const updatecell = (num) => {
     num = parseInt(num);
@@ -186,11 +193,13 @@ function App() {
 
   return (
     <div>
+      <Message complete={completed} mode={notemode} switch={changemode}/>
       <Grid
         grid={grid}
         click={highlightclickedcell}
         clicked={clickedcell}
         complete={completed}
+        switch={changemode}
         mode={notemode}
       />
       <AllowedInputs

@@ -2,12 +2,12 @@ const possible = (row, col, num, grid) => {
   let temp_grid = [...grid]
   num = parseInt(num)
   for (let i = 0; i < temp_grid.length; i++) {
-    if (temp_grid[row][i] === num) {
+    if (!Array.isArray(temp_grid[row][i]) && parseInt(temp_grid[row][i]) === num) {
       return false;
     }
   }
   for (let i = 0; i < temp_grid.length; i++) {
-    if (temp_grid[i][col] === num) {
+    if (!Array.isArray(temp_grid[i][col]) && parseInt(temp_grid[i][col]) === num) {
       return false;
     }
   }
