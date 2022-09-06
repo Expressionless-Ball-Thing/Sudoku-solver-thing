@@ -1,6 +1,6 @@
 const possible = (row, col, num, grid) => {
   let temp_grid = [...grid]
-  num = parseInt(num)
+  num = parseInt(num);
   for (let i = 0; i < temp_grid.length; i++) {
     if (!Array.isArray(temp_grid[row][i]) && parseInt(temp_grid[row][i]) === num) {
       return false;
