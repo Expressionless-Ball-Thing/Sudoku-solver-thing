@@ -8,6 +8,7 @@ function Note(props) {
         items.push(
             <div
                 className={classes}
+                key={i}
                 id={props.id}
                 tabIndex="-1"
                 maxLength={1}

@@ -14,8 +14,8 @@ function AllowedInputs(props) {
         return
     }
     let numbers = [...Array(grid.length + 1).keys()].slice(1)
-    numbers = numbers.filter((num) => possible(row, col, num, grid))
-    numbers = numbers.map((num) => <div className='allowednumber' id={num} onClick={handleclick}>{num}</div>)
+    numbers = props.mode ? numbers : numbers.filter((num) => possible(row, col, num, grid));
+    numbers = numbers.map((num) => <div className='allowednumber' key={num} id={num} onClick={handleclick}>{num}</div>)
     return (
         <div>
         {!props.completed && <div className='allowedinputs'>

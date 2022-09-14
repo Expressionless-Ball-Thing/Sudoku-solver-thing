@@ -118,7 +118,16 @@ function App() {
       return;
     }
     let temp_grid = [...grid];
-    if (templateloaded !== false) {
+
+    for (let row = 0; row < temp_grid.length; row++) {
+      temp_grid[row] = temp_grid[row].map((num) => {
+        return Array.isArray(num)
+          ? n
+          : num
+      });
+    }
+
+    if (templateloaded) {
       for (let row = 0; row < temp_grid.length; row++) {
         temp_grid[row] = temp_grid[row].map((num) => {
           return typeof num === "number"
@@ -205,6 +214,7 @@ function App() {
       <AllowedInputs
         grid={grid}
         cell={clickedcell}
+        mode={notemode}
         completed={completed}
         update={updatecell}
         delete={deletecell}
